@@ -7,6 +7,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Schema;
+use Filament\Forms\Components\MarkdownEditor;
 
 class ServiceForm
 {
@@ -21,13 +22,16 @@ class ServiceForm
                 Textarea::make('body')
                     ->default(null)
                     ->columnSpanFull(),
-                Textarea::make('description')
+                MarkdownEditor::make('description')
                     ->default(null)
                     ->columnSpanFull(),
-                FileUpload::make('image')
-                    ->image(),
+                 FileUpload::make('image')
+                    ->image()
+                    ->disk('public')
+                    ->directory('services'),
                 Toggle::make('is_active')
-                    ->required(),
+                    ->required()
+                    ->default(true),
             ]);
     }
 }

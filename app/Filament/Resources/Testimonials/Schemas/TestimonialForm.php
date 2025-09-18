@@ -22,7 +22,9 @@ class TestimonialForm
                     ->default(null)
                     ->columnSpanFull(),
                 FileUpload::make('image')
-                    ->image(),
+                    ->image()
+                    ->disk('public')
+                    ->directory('services'),
                 Toggle::make('is_active')
                     ->required(),
             ]);
