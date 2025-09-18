@@ -8,6 +8,9 @@ use Filament\Actions\EditAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Actions\ViewAction;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\ActionGroup;
 use Filament\Tables\Table;
 
 class BlogsTable
@@ -22,7 +25,9 @@ class BlogsTable
                     ->searchable(),
                 TextColumn::make('author')
                     ->searchable(),
-                ImageColumn::make('image'),
+                ImageColumn::make('image')
+                    ->disk('public')
+                    ->square(),
                 IconColumn::make('is_active')
                     ->boolean(),
                 TextColumn::make('datetime')
@@ -41,7 +46,11 @@ class BlogsTable
                 //
             ])
             ->recordActions([
-                EditAction::make(),
+                 ActionGroup::make([
+                    ViewAction::make(),
+                    EditAction::make(),
+                    DeleteAction::make(),
+                ])
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
