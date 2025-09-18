@@ -7,6 +7,8 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Schema;
+use Filament\Forms\Components\TagsInput;
+use Filament\Forms\Components\MarkdownEditor;
 
 class ProjectForm
 {
@@ -21,16 +23,20 @@ class ProjectForm
                 Textarea::make('body')
                     ->default(null)
                     ->columnSpanFull(),
-                Textarea::make('description')
+                MarkdownEditor::make('description')
                     ->default(null)
                     ->columnSpanFull(),
-                FileUpload::make('image')
-                    ->image(),
-                Textarea::make('tags')
-                    ->default(null)
-                    ->columnSpanFull(),
+                 FileUpload::make('image')
+                    ->image()
+                    ->disk('public')
+                    ->directory('projects'),
+                TagsInput::make('tags')   // <-- JSON column in your model
+                    ->label('Tags')
+                    ->placeholder('Add a tag')
+                     ->separator(','), // optional 
                 Toggle::make('is_active')
-                    ->required(),
+                    ->required()
+                    ->default(true),
             ]);
     }
 }

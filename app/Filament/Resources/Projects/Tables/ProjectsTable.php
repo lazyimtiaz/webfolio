@@ -8,6 +8,9 @@ use Filament\Actions\EditAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Actions\ViewAction;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\ActionGroup;
 use Filament\Tables\Table;
 
 class ProjectsTable
@@ -20,7 +23,9 @@ class ProjectsTable
                     ->searchable(),
                 TextColumn::make('slug')
                     ->searchable(),
-                ImageColumn::make('image'),
+                ImageColumn::make('image')
+                    ->disk('public')
+                    ->square(),
                 IconColumn::make('is_active')
                     ->boolean(),
                 TextColumn::make('created_at')
@@ -36,7 +41,11 @@ class ProjectsTable
                 //
             ])
             ->recordActions([
-                EditAction::make(),
+                  ActionGroup::make([
+                    ViewAction::make(),
+                    EditAction::make(),
+                    DeleteAction::make(),
+                ])
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

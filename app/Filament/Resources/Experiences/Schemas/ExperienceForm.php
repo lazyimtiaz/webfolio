@@ -3,8 +3,8 @@
 namespace App\Filament\Resources\Experiences\Schemas;
 
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Toggle;
+use Filament\Forms\Components\TagsInput;
 use Filament\Schemas\Schema;
 
 class ExperienceForm
@@ -19,11 +19,13 @@ class ExperienceForm
                     ->required(),
                 TextInput::make('timeline')
                     ->default(null),
-                Textarea::make('objectives')
-                    ->default(null)
-                    ->columnSpanFull(),
+                TagsInput::make('objectives') // <-- multiple objectives
+                    ->label('Objectives')
+                    ->placeholder('Add an objective')
+                    ->separator(','), 
                 Toggle::make('is_active')
-                    ->required(),
+                    ->required()
+                    ->default(true),
             ]);
     }
 }
