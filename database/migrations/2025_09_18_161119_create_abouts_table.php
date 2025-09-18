@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('abouts', function (Blueprint $table) {
             $table->id();
+            $table->string('heading');
+            $table->longText('body')->nullable();
+            $table->string('image')->nullable();
+            $table->text('motto')->nullable();
+            $table->longText('info')->nullable();
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }
